@@ -1,0 +1,33 @@
+{
+   "app": {
+      "launch": {
+         "local_path": "app.html"
+      }
+   },
+   "background": {
+      "page": "bg.html"
+   },
+   "content_scripts": [ {
+      "js": [ "js/menu.js" ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_start"
+   }, {
+      "js": [ "js/jquery-1.7.1.min.js" ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_end"
+   } ],
+   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",   
+   "description": "__MSG_description__",
+   "icons": {
+      "128": "icon128.png",
+      "16": "icon16.png",
+      "48": "icon48.png"
+   },
+   "manifest_version": 2,
+   "name": "Setu Serv Nou",
+   "offline_enabled": false,
+   "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "unlimitedStorage" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0",
+   "web_accessible_resources": [ "note.html" ]
+}

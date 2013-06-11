@@ -1,0 +1,43 @@
+{
+  "manifest_version": 2,
+
+  "name": "SetuServ",
+  "description": "Will help to easily enter data",
+  "version": "1.0",
+
+  "background": {
+        "scripts": [
+            "main.js"
+        ]
+   },
+  "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+			"css" : [
+				"CSS/parent.css"
+			],
+            "js": [
+				"JS/jquery-1.7.1.min.js",
+                "actions.js"
+            ]
+        }
+    ],
+   "permissions": [
+       "contextMenus"
+   ],
+	"web_accessible_resources": [
+		 "note.html"
+		,"css/reset.css"
+        ,"css/text.css" 
+        ,"plugin/jquery.rte.css" 
+        ,"css/note.css" 
+        ,"js/jquery-1.7.1.min.js"
+        ,"js/jquery.textchange.js"
+        ,"plugin/jquery.rte/jquery.rte.js"
+        ,"plugin/jquery.rte/jquery.rte.tb.js"
+        ,"js/process.js"
+        ,"js/note.js"
+	]
+}
