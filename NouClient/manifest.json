@@ -18,10 +18,8 @@
    } ],
    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",   
    "description": "__MSG_description__",
-   "icons": {
-      "128": "icon128.png",
-      "16": "icon16.png",
-      "48": "icon48.png"
+   "icons": {      
+      "16": "icons/icons-14.png"      
    },
    "manifest_version": 2,
    "name": "Setu Serv Nou",

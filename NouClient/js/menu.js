@@ -1,4 +1,30 @@
-﻿function getSidebar() {
+﻿function Get(url, onSuccess) {
+	var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+			onSuccess(xhr.responseText);
+        }
+    }
+    xhr.send();
+}
+function GetMenus() {
+    
+	var url = window.location.href;
+	var baseUrl  = "http://localhost:11080/";
+	var urlToProblemDomain = baseUrl + "/url/" + "fb";	
+	
+	var onSuccess = function(responseText) { 
+		var fieldsUrl = baseUrl + "/plugin/" + responseText;
+		Get(fieldsUrl, function(responseText) { 
+			var fields = JSON.parse(responseText);
+			console.log(fields);
+		});		
+    }
+}
+
+
+function getSidebar() {
 	var s = document.getElementById('note_diigo');
 	getSidebar = function() { return s; };
 	return s;
@@ -31,14 +57,22 @@ document.addEventListener(
 	'mousedown', 
 	function(e) {
 		if (e.which != 3) return;
-		chrome.extension.sendRequest({
-			name:'update_menu', 
-			selection:getSelectionHTML(),
-			status:getSidebar() ? getSidebar().className : ''
-			//sidebar:getSidebar() ? true : false
-			/* status:getSidebar() ? getSidebar().className : '',  */
-			/* noSelection:getSelection().isCollapsed */ //isCollapsed: http://help.dottoro.com/ljikwsqs.php
-		}); 
+		console.log("This is working."); 
+		var selectionText = getSelectionHTML();
+		console.log(selectionText);
+		chrome.extension.sendMessage(selectionText, function(response) {
+            console.log(response);
+        });
+		// chrome.extension.sendRequest({
+			// name:'update_menu', 
+			// selection:getSelectionHTML(),
+			// status:getSidebar() ? getSidebar().className : ''
+			// //sidebar:getSidebar() ? true : false
+			// /* status:getSidebar() ? getSidebar().className : '',  */
+			// /* noSelection:getSelection().isCollapsed */ //isCollapsed: http://help.dottoro.com/ljikwsqs.php
+		// }); 
 	}, 
 	false
 );
+
+GetMenus();
