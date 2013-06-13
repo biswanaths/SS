@@ -74,7 +74,7 @@ class FieldHandler(webapp2.RequestHandler):
 		field = Field(parent=problemdomain_key)
 		field.name = newfield["name"]
 		field_key = field.put()
-		self.response.out.write(field_key.get().toJson())
+		self.response.out.write(json.dumps(field_key.get()))
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -84,9 +84,8 @@ class PluginHandler(webapp2.RequestHandler):
 	def get(self,problemdomain_id):
 		self.response.headers['Content-Type'] = 'application/json'
 		problemdomain_key = ndb.Key('ProblemDomain', int(problemdomain_id))
-		query = Field.query(ancestor=problemdomain_key)
-		fields = query.fetch()
-		self.response.out.write(json.dumps([field.to_dict() for field in query.fetch()]))		
+		query = Field.query(ancestor=problemdomain_key)		
+		self.response.out.write(json.dumps([field.to_dict() for field in query]))		
 			
 class DataHandler(webapp2.RequestHandler):
 
@@ -97,7 +96,7 @@ class DataHandler(webapp2.RequestHandler):
 		datum = Datum(parent=problemdomain_key);
 		datum.data = newData
 		datum_key = datum.put()
-		self.response.out.write("good")
+		self.response.out.write("success")
 	
 	def get(self,problemdomain_id):
 		self.response.headers['Content-Type'] = 'application/json'
