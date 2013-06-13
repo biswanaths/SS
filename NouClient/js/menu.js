@@ -2,25 +2,44 @@
 	var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.onreadystatechange = function() {
+		console.log(xhr.readyState);
+		console.log(xhr);
         if (xhr.readyState == 4) {
-			onSuccess(xhr.responseText);
+			if(xhr.status === 200 ) 
+				onSuccess(xhr.responseText);
         }
     }
     xhr.send();
 }
+
+function SendMessage(type, data) { 
+	var request = { }; 
+	request.type = type; 
+	request.data = data; 
+	chrome.extension.sendMessage(request, function(response) {
+            console.log(response);
+    });
+	console.log("message sent.");
+}
+
 function GetMenus() {
     
-	var url = window.location.href;
-	var baseUrl  = "http://localhost:11080/";
-	var urlToProblemDomain = baseUrl + "/url/" + "fb";	
-	
+	var host = window.location.host;
+	var baseUrl  = "http://localhost:11080";
+	host = "fb.com";
+	var urlToProblemDomain = baseUrl + "/url/" + host;	
+	console.log("menu get");	
+
 	var onSuccess = function(responseText) { 
 		var fieldsUrl = baseUrl + "/plugin/" + responseText;
 		Get(fieldsUrl, function(responseText) { 
 			var fields = JSON.parse(responseText);
 			console.log(fields);
+			SendMessage('createmenu',fields);
 		});		
     }
+	
+	Get(urlToProblemDomain,onSuccess);
 }
 
 

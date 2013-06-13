@@ -13,18 +13,10 @@ class ProblemDomain(ndb.Model):
 	name = ndb.TextProperty()
 	url = ndb.TextProperty()
 	id = ndb.ComputedProperty(lambda self: self.key.id())
-	
-	def toJson(self):
-		this = {}
-		this["id"]		= self.key.id()
-		this["name"] 	= self.name
-		this["url"] 	= self.url		
-		return json.dumps(this)
-		
+
 class Field(ndb.Model):
 	name = ndb.TextProperty()
 	id = ndb.ComputedProperty(lambda self: self.key.id())	
-	
 		
 class Datum(ndb.Model):
 	data = ndb.JsonProperty()
