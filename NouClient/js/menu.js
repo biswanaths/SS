@@ -94,4 +94,55 @@ document.addEventListener(
 	false
 );
 
+function CreateSideView(request) {
+
+	var newiframe = document.createElement('iframe');
+	console.log("Creating the iframe");
+	newiframe.src=chrome.extension.getURL('note.html');
+	newiframe.setAttribute('frameborder','2');
+	newiframe.id = 'note_wrap_diigo';
+	var newdiv = document.createElement('div');
+	newdiv.id="note_diigo";
+	newdiv.className="diigo_note_app_maximize";
+	newdiv.appendChild(newiframe);
+	console.log("appended the iframe to the page.");
+	document.body.appendChild(newdiv);	
+	console.log("appended the div to the page.");
+	
+	// window.addEventListener('keydown', handleKeydown, false);
+	
+	// init = function(request) {
+		// var s = getSidebar(),
+			// c = s.className;
+		
+		// if (getSelectionHTML()) { // from menu.js - check if has selection
+			// chrome.extension.sendRequest({name:'get_selection'});
+		// }
+		// else {
+			// switch(c) {
+			// case 'diigo_note_app_maximize':
+				// c = 'diigo_note_app_minimize';
+				// break;
+			// case 'diigo_note_app_minimize':
+				// c = 'diigo_note_app_maximize';
+				// break;
+			// case 'diigo_note_app_close':
+				// c = 'diigo_note_app_maximize';
+				// break;
+			// }
+			// s.className = c;
+			// //chrome.extension.sendRequest({name:'action', action:c});
+		// }
+	// };
+}
+
+var dataviewcreated = false; 
 GetMenus();
+
+chrome.extension.onMessage.addListener(function (message, sender, callback) {
+    if (message.action == "showfield") {		
+		if(dataviewcreated == false ) 
+			CreateSideView();
+        //showInfo(message.field,message.value);
+    }    
+});

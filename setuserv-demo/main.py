@@ -9,7 +9,6 @@ import json
 from google.appengine.ext import ndb
 
 class ProblemDomain(ndb.Model):
-
 	name = ndb.TextProperty()
 	url = ndb.TextProperty()
 	id = ndb.ComputedProperty(lambda self: self.key.id())
@@ -69,10 +68,12 @@ class FieldHandler(webapp2.RequestHandler):
 		self.response.out.write(json.dumps(field_key.get()))
 
 class MainHandler(webapp2.RequestHandler):
+
     def get(self):
         self.response.write('Hello world!')
 		
 class PluginHandler(webapp2.RequestHandler):
+
 	def get(self,problemdomain_id):
 		self.response.headers['Content-Type'] = 'application/json'
 		problemdomain_key = ndb.Key('ProblemDomain', int(problemdomain_id))
