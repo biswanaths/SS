@@ -1,0 +1,65 @@
+#note_diigo.diigo_note_app_maximize {
+z-index: 10001;
+position: fixed;
+top: 0px;
+right: 0px;
+bottom: 0px;
+width: 270px;
+-webkit-transition: width 0.1s ease-in;
+transition-property: width;
+transition-duration: 0.1s;
+transition-timing-function: ease-in;
+transition-delay: initial;
+}
+
+#note_diigo {
+margin: 0px;
+padding: 0px;
+}
+
+#note_diigo.diigo_note_app_minimize {
+z-index: 10001;
+position: fixed;
+top: 0px;
+right: 0px;
+bottom: 0px;
+width: 35px;
+-webkit-transition: width 0.1s ease-out;
+transition-property: width;
+transition-duration: 0.1s;
+transition-timing-function: ease-out;
+transition-delay: initial;
+}
+
+#note_diigo.diigo_note_app_close {
+z-index: 10001;
+position: fixed;
+top: 0px;
+right: 0px;
+bottom: 0px;
+width: 0px;
+-webkit-transition: width 0.1s ease-out;
+transition-property: width;
+transition-duration: 0.1s;
+transition-timing-function: ease-out;
+transition-delay: initial;
+}
+
+iframe{
+border-top-width: 0px;
+border-right-width: 0px;
+border-bottom-width: 0px;
+border-left-width: 0px;
+}
+#note_wrap_diigo {
+width: 100%;
+height: 100%;
+}
+iframe:not([seamless]) {
+border: 2px inset;
+border-image-source: initial;
+border-image-slice: initial;
+border-image-width: initial;
+border-image-outset: initial;
+border-image-repeat: initial;
+}

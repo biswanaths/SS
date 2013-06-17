@@ -17,8 +17,7 @@ function getSidebar() {
 	return s;
 }
 
-
-function Get(url, onSuccess) {
+function get(url, onSuccess) {
 	var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.onreadystatechange = function() {
@@ -32,11 +31,7 @@ function Get(url, onSuccess) {
     xhr.send();
 }
 
-function Post(url, data) { 
-	console.log("data posted");
-}
-
-function SendMessage(type, data) { 
+function sendMessage(type, data) { 
 	var request = { }; 
 	request.type = type; 
 	request.data = data; 
@@ -46,9 +41,7 @@ function SendMessage(type, data) {
 	console.log("message sent.");
 }
 
-var sendMessage = SendMessage;
-
-function GetMenus() {
+function getMenus() {
     
 	var host = window.location.host;
 	var baseUrl  = "http://localhost:11080";
@@ -58,18 +51,18 @@ function GetMenus() {
 
 	var onSuccess = function(responseText) { 
 		var fieldsUrl = baseUrl + "/plugin/" + responseText;
-		Get(fieldsUrl, function(responseText) { 
+		get(fieldsUrl, function(responseText) { 
 			var fields = JSON.parse(responseText);
 			console.log(fields);
 			SendMessage('createmenu',fields);
 		});		
     }
 	
-	Get(urlToProblemDomain,onSuccess);
+	get(urlToProblemDomain,onSuccess);
 }
 
 
-function CreateSideView() {
+function createSidePanel() {
 
 	var newiframe = document.createElement('iframe');
 	console.log("Creating the iframe");
@@ -88,26 +81,20 @@ function CreateSideView() {
 }
 
 
-GetMenus();
+getMenus();
 
 
 chrome.extension.onMessage.addListener(function (message, sender, callback) {
     if (message.action == "showfield") {				
-		CreateSideView();			
+		createSidePanel();			
 		sendMessage('add','sending fromt he menu.js');
     }    
 });
 
 
 window.addEventListener("message", function(e){ 		// listen msg from note.js
-	if (e.data == 'check_url') {}
-		//chrome.extension.sendRequest({name: 'check_url', url: location.href.replace(location.hash, '')});
-	else
-    {
-        if(e.data=="maximize" || e.data =="minimize" || e.data=="close")
-			getSidebar().className = 'diigo_note_app_'+e.data;
-		else if(e.data == "save") {
-			testConnect();
-		}
-    }
+	if(e.data=="maximize" || e.data =="minimize" || e.data=="close")
+		getSidebar().className = 'diigo_note_app_'+e.data;
+	else if(e.data == "save") 
+		testConnect();
 }, false);

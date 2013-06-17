@@ -8,15 +8,19 @@
       "page": "bg.html"
    },
    "content_scripts": [ {
-      "js": [ "js/menu.js" ],
+      "js": [ "js/content.js" ],
+	  "css" : [
+				"CSS/parent.css"
+			],
       "matches": [ "http://*/*", "https://*/*" ],
       "run_at": "document_start"
    }, {
       "js": [ "js/jquery-1.7.1.min.js" ],
       "matches": [ "http://*/*", "https://*/*" ],
       "run_at": "document_end"
-   } ],
-   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",   
+   } 
+   ],
+   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self' ",   
    "description": "__MSG_description__",
    "icons": {      
       "16": "icons/icons-14.png"      
@@ -27,5 +31,5 @@
    "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "unlimitedStorage" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "1.0",
-   "web_accessible_resources": [ "note.html" ]
+   "web_accessible_resources": [ "note.html"]
 }

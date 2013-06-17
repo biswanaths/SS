@@ -4,6 +4,7 @@ var data = {};
 
 chrome.extension.onMessage.addListener(
     function(request, sender, sendResponse) {
+		console.log("listern on bg.js listened type:" + request.type + " data:" +request.data);
 		console.log(sender.tab ?
                 "from a content script:" + sender.tab.url :
                 "from the extension");
@@ -15,9 +16,9 @@ chrome.extension.onMessage.addListener(
 				break;
 			case 'createmenu':
 				CreateMenus(request.data);
-				break;
-			case 'createsideview':
-				CreateSideView();
+				break;		
+			case 'add':
+				chrome.tabs.sendMessage(sender.tab.id,{type:"add",data:"Some new data"});
 			default:
 				sendResponse({message:'Not handling this message'});
 		}		
@@ -53,7 +54,7 @@ function CreateMenus(fields) {
 
 
 function SendMessage(message) { 
-	chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs){		
 		chrome.tabs.sendMessage(
 			tabs[0].id,
 			message, 
