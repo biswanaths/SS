@@ -96,7 +96,7 @@ class DataHandler(webapp2.RequestHandler):
 		problemdomain_key = ndb.Key('ProblemDomain', int(problemdomain_id))		
 		self.response.out.write(
 			json.dumps(
-				[datum for datum in Datum.query(ancestor=problemdomain_key)]))	
+				[datum.to_dict() for datum in Datum.query(ancestor=problemdomain_key)]))	
 		
 		
 app = webapp2.WSGIApplication([

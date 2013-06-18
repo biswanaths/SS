@@ -81,20 +81,30 @@ var note = {
 			top.postMessage(action, '*');
 		});
 		
-		$('#savedata').click(function(e) { 
+		$('input.save').click(function(e) { 
 			top.postMessage('save','*');
 		});
-    }
+    },
+	showField : function(field) {						
+		
+		var html = "<div id='" + field["id"] + "'> " +
+						" <div class='name' > " + field["name"] + " </div> " + 
+						" <p class='value'> " + field[field["id"]] + " </p> " + 
+					"</div>"
+					
+		$("#editor #" + field["id"]).remove();		
+		$("#editor").append(html);			
+	}
 }
 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {	
-	console.log("listern on note.js listened type:" + request.type + " data:" +request.data);
+		//console.log("listern on note.js listened type:" + request.type + " data:" +request.data);
 		switch(request.type) {
 			case 'check_url':
 				note.init(request);
 				break;
-			case 'add':			
-				$("#editor").html(request.data);			
+			case 'add':	
+				note.showField(request.data);
 				break;
 			case 'save_note':
 				break;

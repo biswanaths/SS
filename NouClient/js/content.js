@@ -1,4 +1,7 @@
-﻿function hasClass(ele,cls) {
+﻿var data = {};
+var problemDomainId = null;
+
+function hasClass(ele,cls) {
 	return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
 }
 function addClass(ele,cls) {
@@ -31,6 +34,23 @@ function get(url, onSuccess) {
     xhr.send();
 }
 
+function post(url,data, onSuccess) { 
+	var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json");
+	var serializedData = JSON.stringify(data);
+    xhr.onreadystatechange = function() {
+		console.log(xhr.readyState);
+		console.log(xhr);
+        if (xhr.readyState == 4) {
+			if(xhr.status === 200 ) 
+				if(typeof onSuccess != 'undefined')
+					onSuccess(xhr.responseText);
+        }
+    }
+    xhr.send(serializedData);
+}
+
 function sendMessage(type, data) { 
 	var request = { }; 
 	request.type = type; 
@@ -50,20 +70,20 @@ function getMenus() {
 	console.log("menu get");	
 
 	var onSuccess = function(responseText) { 
+		data["problemdomain_id"] = responseText;
 		var fieldsUrl = baseUrl + "/plugin/" + responseText;
 		get(fieldsUrl, function(responseText) { 
 			var fields = JSON.parse(responseText);
 			console.log(fields);
-			SendMessage('createmenu',fields);
+			sendMessage('createmenu',fields);
 		});		
     }
 	
-	get(urlToProblemDomain,onSuccess);
+	get(urlToProblemDomain,onSuccess);	
 }
 
 
 function createSidePanel() {
-
 	var newiframe = document.createElement('iframe');
 	console.log("Creating the iframe");
 	newiframe.src=chrome.extension.getURL('note.html');
@@ -76,8 +96,12 @@ function createSidePanel() {
 	console.log("appended the iframe to the page.");
 	document.body.appendChild(newdiv);	
 	console.log("appended the div to the page.");	
-	CreateSideView = function() { return; }	
-	
+	createSidePanel = function() { return; }		
+}
+
+function save() { 
+	var url = "http://localhost:11080/data/save";
+	post(url,data,function(response) { console.log('saved');});
 }
 
 
@@ -87,7 +111,10 @@ getMenus();
 chrome.extension.onMessage.addListener(function (message, sender, callback) {
     if (message.action == "showfield") {				
 		createSidePanel();			
-		sendMessage('add','sending fromt he menu.js');
+		sendMessage('add',message.field);
+		var name  = message.field["name"];
+		var value = message.field[name]; 
+		data[name] = value;
     }    
 });
 
@@ -96,5 +123,5 @@ window.addEventListener("message", function(e){ 		// listen msg from note.js
 	if(e.data=="maximize" || e.data =="minimize" || e.data=="close")
 		getSidebar().className = 'diigo_note_app_'+e.data;
 	else if(e.data == "save") 
-		testConnect();
+		save();
 }, false);

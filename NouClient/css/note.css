@@ -78,7 +78,11 @@ body.minimize #close{
 	font-weight:bold;
     line-height: 24px;
 	color: #664400;
-    text-shadow: 0 1px 0 rgba(255,255,255,.7);
+    text-shadow: 0 1px 0 rgba(255,255,255,.7); 
+	cursor: pointer;
+}
+#title input:hover {
+	background-position: -28px 0;
 }
 
 /* editor */
@@ -87,14 +91,33 @@ body.minimize #close{
     top:70px;
     bottom:0;
     left:10px;
-    background: url(../images/line-height-22.png) 0 11px repeat;
+    /*background: url(../images/line-height-22.png) 0 11px repeat;*/
+	width :100%;
 }
 #editor>textarea{
 	display:none;
 }
 
 #editor>div{
-	margin-left: 26px;
+	margin-left: 28px;
+	border-bottom-width : 1px;
+	border-bottom-style : double;
+	margin-top : 4px;
+}
+
+#editor > div > div.name { 	
+	line-height: 15px;
+	font-size: 12px;
+	text-align:left;
+	margin-left : 10px;
+}
+
+#editor > div > p.value{ 
+	font-size: 10px;
+	text-align:left;
+	margin-left : 12px;	
+	line-height: 14px;
+	text-indent : 12px
 }
 .rte-zone {
     height:100%;
@@ -106,3 +129,4 @@ body.minimize #close{
 .rte-toolbar, .rte-resizer {
     display:none;
 }
+

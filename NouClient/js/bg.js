@@ -15,18 +15,40 @@ chrome.extension.onMessage.addListener(
 				sendResponse({farewell: "goodbye"});
 				break;
 			case 'createmenu':
-				CreateMenus(request.data);
+				createMenus(request.data);
 				break;		
 			case 'add':
-				chrome.tabs.sendMessage(sender.tab.id,{type:"add",data:"Some new data"});
+				console.log('Sending message');
+				chrome.tabs.sendMessage(sender.tab.id,request);
+				console.log('Message sent');
+				break;
 			default:
 				sendResponse({message:'Not handling this message'});
 		}		
 	}
 );
 
-function CreateMenus(fields) { 
-	chrome.contextMenus.removeAll();
+function createMenus(fields) { 
+	chrome.contextMenus.removeAll();	
+	var funcs = new Array(fields.length); 
+	for(var i=0;i<fields.length;i++) { 
+		var id = fields[i].id; 
+		var name = fields[i].name;
+		funcs[i] = function(id,name) { 
+			var localid = id, localname = name;			
+			return function(info,tab) {				
+				var message = {} ; 
+				message.action = "showfield"; 
+				message.field = {};
+				message.field["id"] = localid;
+				message.field["name"] = localname;
+				message.field[localid] = info.selectionText;
+				message.field[localname] = info.selectionText;
+				sendMessage(message,function() {});
+			}}(id,name);
+	}
+	
+	
 	for(var i=0;i<fields.length;i++) { 
 		var id = fields[i].id;
 		var name = fields[i].name;
@@ -35,17 +57,7 @@ function CreateMenus(fields) {
 				id : id.toString(), 
 				title : name,
 				contexts : [ "selection"],
-				onclick : function( info,tab) { 
-					console.log(info);
-					data[id] = info.selectionText;
-					data[name] = info.selectionText;
-					var message = {};
-					message.action = "showfield";
-					message.field = {};
-					message.field[id] = info.selectionText;
-					message.field[name] = info.selectionText;
-					SendMessage(message,function() {});
-				}
+				onclick : funcs[i]
 			}
 		);
 		console.log("created " + fields[i]);
@@ -53,7 +65,7 @@ function CreateMenus(fields) {
 }
 
 
-function SendMessage(message) { 
+function sendMessage(message) { 
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs){		
 		chrome.tabs.sendMessage(
 			tabs[0].id,
