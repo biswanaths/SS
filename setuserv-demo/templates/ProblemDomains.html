@@ -1,19 +1,26 @@
 <html>
 	<head>
 		<title>All the problem domains</title>
-		<link href="stylesheets/styles.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="stylesheets/style.css" media="all" rel="stylesheet" type="text/css" />
 	</head>
 <body>
-	
+	<table>
+		<tr>
+			<td>Name</td><td>Url</td><td></td>
+		</tr>
 	{%- for problemDomain in problemDomains %}
-		<div>
 			<tr>
-				<td>Name</td><td>{{problemDomain.name}}</td>
-				<td>URL</td><td>{{problemDomain.url}}</td>
-				<td><a href="problemdomainview/{{problemDomain.id}}">Fields</a>
+				<td>{{problemDomain.name}}</td>
+				<td>{{problemDomain.url}}</td>
+				<td><a href="problemdomainview/{{problemDomain.id}}">Fields</a></td>
 			</tr>
-		</div>
 	{%- endfor %}
-	<a class="button" href="/problemdomain/new"> Add Problem Domain</a>
+	
+	<tr>
+	<td colspan="1"></td>
+	<td colspan="2">
+		<a class="button" href="/problemdomain/new"> Add Problem Domain</a>
+	</td>
+	</table>
 </body>
 </html>

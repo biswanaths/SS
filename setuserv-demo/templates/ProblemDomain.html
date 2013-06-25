@@ -1,16 +1,18 @@
 <html>
 	<head>
 		<title>Problem Domain : {{problemDomain.name}}</title>
-		<link href="/stylesheets/styles.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="/stylesheets/style.css" media="all" rel="stylesheet" type="text/css" />
 	</head>
 <body>
-	
+	<div style="margin:100px;">
+	<div style="font-weight:bold;margin:10px">Field</div>
 	{%- for field in fields %}
-		<div>
-			<div><span>Name : </span><span>{{field.name}}</span></div>			
-		</div>
+		<div style="margin:10px">{{field.name}}</div>			
 	{%- endfor %}
-	<a class="button" href="/problemdomain/field/new/{{problemDomain.id}}">New Field</a>
-	<a class="button" href="/data/{{problemDomain.id}}">View Data</a>
+	<div style="height:40px;margin:20px;">
+		<a class="button" href="/problemdomain/field/new/{{problemDomain.id}}">New Field</a>
+		<a class="button" href="/data/{{problemDomain.id}}">View Data</a>
+	</div>
+	</div>
 </body>
 </html>

@@ -1,15 +1,14 @@
 <html>
 	<head>
 		<title>All the problem domains</title>
-		<link href="/stylesheets/styles.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="/stylesheets/style.css" media="all" rel="stylesheet" type="text/css" />
 	</head>
 <body>
-	
-	          <form action="/problemdomain/field/save/{{problemdomain_id}}" method="post">
-                <div>Name : <input name="fieldname"></input></div>
-                <div><input type="submit" class="button" value="Add"></div>
-              </form>
-    
-     
+	<form action="/problemdomain/field/save/{{problemdomain_id}}" method="post">
+		<div style="width:600px">
+		<div><span style="margin:10px;width:100px;font-size:15px;">Name</span><input name="fieldname" style="width:500px"></input></div>
+        <div><input type="submit" class="button" value="Add" style="width:100px;float:right;margin:10px 40px;"/></div>
+		</div>
+    </form>
 </body>
 </html>
