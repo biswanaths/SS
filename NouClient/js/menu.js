@@ -51,8 +51,7 @@ var sendMessage = SendMessage;
 function GetMenus() {
     
 	var host = window.location.host;
-	var baseUrl  = "http://localhost:11080";
-	host = "fb.com";
+	var baseUrl  = "http://setuserv-demo.appspot.com";
 	var urlToProblemDomain = baseUrl + "/url/" + host;	
 	console.log("menu get");	
 

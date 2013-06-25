@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>Problem Domain : {{problemDomain.name}}</title>
+	</head>
+<body>
+	
+	{%- for field in fields %}
+		<div>
+			<div><span>Name : </span><span>{{field.name}}</span></div>			
+		</div>
+	{%- endfor %}
+	<a href="/problemdomain/field/new/{{problemDomain.id}}">New Field</a>
+</body>
+</html>

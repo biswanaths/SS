@@ -64,8 +64,8 @@ function sendMessage(type, data) {
 function getMenus() {
     
 	var host = window.location.host;
-	var baseUrl  = "http://localhost:11080";
-	host = "fb.com";
+	var baseUrl  = "http://setuserv-demo.appspot.com";
+	//host = "fb.com";
 	var urlToProblemDomain = baseUrl + "/url/" + host;	
 	console.log("menu get");	
 
@@ -100,8 +100,8 @@ function createSidePanel() {
 }
 
 function save() { 
-	var url = "http://localhost:11080/data/save";
-	post(url,data,function(response) { console.log('saved');});
+	var url = "http://setuserv-demo.appspot.com/data/save";
+	post(url,data,function(response) { getSidebar().className = 'diigo_note_app_close';});
 }
 
 

@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>All the problem domains</title>
+	</head>
+<body>
+	
+	{%- for problemDomain in problemDomains %}
+		<div>
+			<tr>
+				<td>Name</td><td>{{problemDomain.name}}</td>
+				<td>URL</td><td>{{problemDomain.url}}</td>
+				<td><a href="problemdomainview/{{problemDomain.id}}">Fields</a>
+			</tr>
+		</div>
+	{%- endfor %}
+	<a href="/problemdomain/new"> Add Problem Domain</a>
+</body>
+</html>
