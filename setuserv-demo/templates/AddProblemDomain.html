@@ -1,15 +1,24 @@
 <html>
 	<head>
 		<title>All the problem domains</title>
+		<link href="/stylesheets/form.css" media="all" rel="stylesheet" type="text/css" />
 	</head>
 <body>
-	
-	          <form action="/problemdomain/save" method="post">
-                <div>Name : <input name="problemdomainname"></input></div>
-                <div>URL : <input name="url"></input></div>
-                <div><input type="submit" value="Add"></div>
-              </form>
-    
-     
+	<form class="checkout" action="/problemdomain/save" method="post">
+		<div class="checkout-header">
+			<h1 class="checkout-title">
+				New Problem Domain
+			</h1>
+		</div>
+		<p>
+			<input class="checkout-input" name="problemdomainname" placeholder="Name"></input>
+		</p>
+		<p>
+			<input  class="checkout-input" name="url" placeholder="Url"></input>
+		</p>
+        <p>
+			<input type="submit" class="checkout-btn" value="Add"></div>
+		</p>
+	</form>
 </body>
 </html>

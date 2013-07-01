@@ -1,22 +1,24 @@
 <html>
 	<head>
-		<title>Problem Domain : {{problemDomain.name}}</title>
+		<title>Data collected for problem domain</title>
 		<link href="/stylesheets/nou.css" media="all" rel="stylesheet" type="text/css" />
 	</head>
 <body>
 	<div class="table-wrapper">
 		<table>
 			<tr>
-				<th>Name</th><th>Active</th>
-			</tr>
 			{%- for field in fields %}
+				<th>{{field.name}}</th>
+			{%- endfor %}
+			</tr>
+			{%- for datum in data %}
 			<tr>
-				<td>{{field.name}}</td>
-				<td></td>
+				{%- for field in fields %}
+					<td>{{datum[field.name]}}</td>
+				{%- endfor %}					
 			</tr>
 			{%- endfor %}
 		</table>
-		<a class="button" href="/problemdomain/field/new/{{problemDomain.id}}">Add a new field</a>
 	</div>
 </body>
 </html>

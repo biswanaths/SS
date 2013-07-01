@@ -128,7 +128,14 @@ class DataHandler(webapp2.RequestHandler):
 		problemdomain_key = ndb.Key('ProblemDomain', int(problemdomain_id))		
 		self.response.out.write(
 			json.dumps(
-				[datum.to_dict() for datum in Datum.query(ancestor=problemdomain_key)]))	
+				[datum.to_dict() for datum in Datum.query(ancestor=problemdomain_key)]))
+
+class DataViewHandler(HtmlHandler):
+	
+	def get(self,problemdomain_id):
+		problemdomain_key = ndb.Key('ProblemDomain', int(problemdomain_id))		
+		data   = [datum.data for datum in Datum.query(ancestor=problemdomain_key)]
+		self.render_response('ProblemDomainData.html',fields = Field.query(ancestor=problemdomain_key), data = data )
 		
 		
 app = webapp2.WSGIApplication([
@@ -145,5 +152,6 @@ app = webapp2.WSGIApplication([
 	webapp2.Route(r'/problemdomain/field/new/<problemdomain_id:\d+>',NewFieldHandler,name='newfield'),
 	webapp2.Route(r'/problemdomain/<problemdomain_id:\d+>/field/<field_id:\d+>',FieldHandler,name='field'),
 	webapp2.Route(r'/data/save',DataHandler,name='data'),
-	webapp2.Route(r'/data/<problemdomain_id:\d+>',DataHandler,name='data')
+	webapp2.Route(r'/data/<problemdomain_id:\d+>',DataHandler,name='data'),
+	webapp2.Route(r'/dataview/<problemdomain_id:\d+>',DataViewHandler,name='dataview')
 ], debug=True)
